@@ -1,0 +1,53 @@
+{
+  "mcpServers": {
+    "soubory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${DILNA_ROOT:-.}"
+      ],
+      "env": {}
+    },
+    "git": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "${DILNA_ROOT:-.}"
+      ],
+      "env": {}
+    },
+    "web": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "env": {}
+    },
+    "pamet": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "${DILNA_ROOT:-.}/.dilna/pamet.jsonl"
+      }
+    },
+    "kniha": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-server-sqlite",
+        "--db-path",
+        "${DILNA_ROOT:-.}/.dilna/kniha.db"
+      ],
+      "env": {}
+    }
+  }
+}

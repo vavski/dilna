@@ -1,0 +1,18 @@
+# Pracovní data nastavení — historie nálezů, reporty, paměť agentů.
+# Je to jen tvoje a do repozitáře to nepatří.
+.dilna/
+
+# Místní úpravy oprávnění, které se nemají sdílet.
+.claude/settings.local.json
+
+# Prostředí a závislosti
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+
+# Systémový balast
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,6 @@
+# Konce řádků se normalizují, ať repozitář vypadá stejně na Windows i jinde.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.db  binary

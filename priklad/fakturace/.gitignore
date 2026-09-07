@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+
+# POZOR: chybí tu pravidlo pro data/ — to je ta chyba, kterou má
+# kontrola najít. Neopravuj to, dokud si vzorek nevyzkoušíš.
