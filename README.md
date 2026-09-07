@@ -51,7 +51,7 @@ export DILNA_ROOT=~/dilna
 | Claude Code | vlastně všechno | |
 | Python 3.10+ | hooky, stavový řádek, skripty ve skillech | 3.14.3 |
 | Node.js 18+ | MCP servery `soubory` a `pamet` (přes `npx`) | 24.15.0 |
-| `uv` | MCP servery `git`, `web` a `kniha` (přes `uvx`) | 0.12.2 |
+| `uv` | MCP servery `git` a `web` (přes `uvx`) | 0.12.2 |
 | git | bez něj polovina kontroly nemá co číst | 2.54 |
 
 Verze ve třetím sloupci jsou ty, na kterých je to odzkoušené. Nižší
@@ -73,6 +73,7 @@ repozitáři a dá se přečíst.
 ├── commands/               tři slash příkazy
 ├── hooks/                  tři hooky
 ├── output-styles/          styl odpovědí
+├── mcp/kniha.py            vlastní MCP server nad historií nálezů
 └── statusline.py           stavový řádek
 priklad/                    ukázkový vzorek, tři smyšlené projekty
 docs/                       proč je to udělané takhle
@@ -86,7 +87,7 @@ docs/                       proč je to udělané takhle
 | `git` | historie projektu bez pouštění příkazů | `mcp-server-git` |
 | `web` | dohledání, jestli je závislost ještě živá | `mcp-server-fetch` |
 | `pamet` | co jsme o projektech zjistili minule | `@modelcontextprotocol/server-memory` |
-| `kniha` | historie nálezů v SQLite | `mcp-server-sqlite` |
+| `kniha` | historie nálezů z minulých kontrol | **vlastní**, `.claude/mcp/kniha.py` |
 
 `kniha` je ten, kvůli kterému to má smysl pouštět opakovaně. Bez historie
 je kontrola fotka. S ní je vidět, jestli se dílna zlepšuje — a hlavně
@@ -207,6 +208,12 @@ Poctivý seznam toho, co jsem neodzkoušel nebo co má známou hranici.
   hlásí chybějící správu verzí. Na skutečné dílně se to nestane.
 - **`kniha` a `pamet` si zakládají soubory v `.dilna/`** při prvním
   použití. Ta složka je v `.gitignore` — historie nálezů je jen tvoje.
+- **`kniha` je vlastní server, ne převzatý.** Původně tam byl
+  `mcp-server-sqlite`, ale ten je opuštěný a při startu spadne na
+  funkci, která v dnešní verzi knihovny neexistuje. Vlastní server
+  stojí jen na standardní knihovně, takže ho nemá co rozbít — zato
+  za něj ručím sám. Odzkoušený je handshake, výpis nástrojů, zápis
+  nálezu, odmítnutí špatného vstupu a rozpoznání téhož nálezu mezi běhy.
 
 ---
 
@@ -226,3 +233,5 @@ rizikem. Kontrola, která během čtení něco přepíše, se přestane pouště
 **Report má mít tři položky, ne třicet.** Kontrola, která najde třicet
 věcí, se přečte jednou. Proto `pisar` třídí podle důsledku a zbytek
 nechává v knize na příště.
+
+

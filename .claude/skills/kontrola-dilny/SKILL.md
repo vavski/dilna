@@ -55,7 +55,8 @@ klientských složek do kontextu agenta nepatří.
 
 ### 3. Porovnej s minulým během
 
-V `.dilna/kniha.db` je tabulka `nalezy` s historií. Zajímají tě dvě věci:
+Kniha nálezů v `.dilna/kniha.db` si pamatuje minulé běhy. Zavolej
+`pretrvavajici` a `zmizele` — zajímají tě dvě věci:
 
 - **Nález, který přetrvává.** Když je stejný nález ve třech běhech po sobě,
   není to nález, ale rozhodnutí. Označ ho a zeptej se, jestli má zmizet
@@ -63,7 +64,9 @@ V `.dilna/kniha.db` je tabulka `nalezy` s historií. Zajímají tě dvě věci:
 - **Nález, který zmizel.** Zapiš do reportu jako hotovou věc, ať je vidět
   pohyb.
 
-Když tabulka neexistuje, založ ji podle `references/kniha.md`.
+Když se server `kniha` nepřipojí, tenhle krok přeskoč a napiš do
+reportu jednou větou, že porovnání s minulými běhy chybí. Kvůli knize
+kontrolu nezastavuj.
 
 ### 4. Nech to sepsat
 
@@ -72,8 +75,9 @@ od toho je on. Report píše pro člověka, který není vývojář.
 
 ### 5. Zapiš nálezy do knihy
 
-Do tabulky `nalezy` vlož jeden řádek na nález: datum běhu, projekt, druh,
-závažnost, krátký popis. Bez toho nebude příště fungovat krok 3.
+Na každý nález zavolej `zapis_nalez`. Do popisu piš jednu větu
+**bez osobních údajů** — kniha přežije jednotlivý běh a nikdo ji nečistí.
+Bez tohohle kroku nebude příště fungovat krok 3.
 
 ## Co dělá tuhle kontrolu užitečnou
 
@@ -95,5 +99,6 @@ jedním řádkem. Zbytek zůstane v knize a vyplave příští týden.
 
 ## Další čtení
 
-- `references/kniha.md` — schéma tabulky nálezů a dotazy nad historií
+- `references/kniha.md` — nástroje knihy nálezů a co do nich patří
 - `references/co-je-nalez.md` — hranice mezi nálezem a šumem
+

@@ -41,13 +41,14 @@
     },
     "kniha": {
       "type": "stdio",
-      "command": "uvx",
+      "command": "python",
       "args": [
-        "mcp-server-sqlite",
-        "--db-path",
-        "${DILNA_ROOT:-.}/.dilna/kniha.db"
+        ".claude/mcp/kniha.py",
+        "--db",
+        ".dilna/kniha.db"
       ],
       "env": {}
     }
   }
 }
+

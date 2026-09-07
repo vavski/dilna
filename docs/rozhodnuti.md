@@ -165,11 +165,37 @@ a je to v něm napsané, aby to model nezaměnil.
 
 ---
 
+## 10. Kniha nálezů je vlastní MCP server, ne převzatý
+
+**Rozhodnutí:** `kniha` je `.claude/mcp/kniha.py` — 320 řádků nad SQLite,
+jen standardní knihovna, žádná závislost.
+
+**Proč:** původně tam byl hotový `mcp-server-sqlite`. Při prvním
+skutečném spuštění se ukázalo, že je opuštěný — volá funkci, která
+v dnešní verzi knihovny `mcp` neexistuje, a spadne hned po startu.
+Můj test byl přitom `--help`, který skončí dřív, než se server rozjede.
+Ověřil jsem, že se balík stáhne, ne že běží.
+
+Připnout starou verzi knihovny by problém odsunulo, ne vyřešilo: za rok
+by to spadlo znovu a další člověk by hledal totéž. Vlastní server nemá
+co rozbít, protože nestojí na ničem, co se aktualizuje.
+
+Vedlejší přínos: nástroje se dají pojmenovat podle toho, k čemu slouží
+(`pretrvavajici`, `zmizele`), místo aby model skládal SQL. Kontrola pak
+nemůže dotaz splést a skill je o třetinu kratší.
+
+**Co to stojí:** za ten server ručím sám. Když se protokol MCP posune,
+neopraví ho nikdo jiný. U dvou set řádků bez závislostí to beru.
+
+**Co se cestou ukázalo:** server tiše zahazoval zprávy, kterým nerozuměl.
+Klient by na odpověď čekal navždy a nikdo by nevěděl proč — přesně to
+tiché selhání, na které je v repozitáři vlastní agent. Teď se nesrozumitelná
+zpráva vypíše.
+
+---
+
 ## Co bych udělal jinak, kdyby na to byl čas
 
-- **Vlastní MCP server místo `kniha` + skript.** Práce s knihou nálezů
-  je dneska rozdělená mezi SQL v referenci a Python skript. Jeden malý
-  server by to spojil a skill by se zkrátil o třetinu.
 - **Hook na konci sezení.** Když se v sezení měnily soubory a `STAV.md`
   se nesáhl, mělo by to samo připomenout `/konec`. Nedal jsem to tam,
   protože hook, který otravuje po každé drobnosti, se do týdne vypne —
@@ -177,3 +203,5 @@ a je to v něm napsané, aby to model nezaměnil.
 - **Rozpoznání jmen.** Na jména neexistuje vzor a seznam příjmení by
   z toho udělal jinou třídu nástroje. Zatím to řeší člověk, což je
   v `anonymizace` napsané nahlas.
+
+
