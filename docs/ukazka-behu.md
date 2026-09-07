@@ -3,6 +3,11 @@
 Co se stane mezi `/kontrola` a hotovým reportem. Psané podle vzorku
 `priklad/`, aby se to dalo zopakovat.
 
+> **Co je tady změřené a co ne.** Výstupy hooků, stavového řádku
+> a skriptů jsou opsané z opravdového běhu. Výstupy subagentů jsou
+> ukázkové — ilustrují tvar, ve kterém agenti odpovídají, ne konkrétní
+> běh. Model odpoví pokaždé o něco jinak; pevný je jen ten tvar.
+
 ---
 
 ## Ještě před prvním slovem

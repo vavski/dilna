@@ -5,6 +5,9 @@
 # Místní úpravy oprávnění, které se nemají sdílet.
 .claude/settings.local.json
 
+# Stav práce na samotném nastavení. Patří do dílny, ne do odevzdávky.
+/STAV.md
+
 # Prostředí a závislosti
 __pycache__/
 *.pyc
