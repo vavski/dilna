@@ -62,11 +62,27 @@ def posbirej_text(vstup: dict) -> str:
     return "\n".join(k for k in kusy if isinstance(k, str))
 
 
-def main() -> int:
+def nacti_udalost():
+    """Precte udalost ze stdin. Vrati None, kdyz ji nerozumime.
+
+    Vstup se cte binarne a cisti od znacky kodovani - nektera prostredi
+    ji na zacatek prilepi a `json` na ni spadne. Hook, ktery kvuli tomu
+    tise pusti volani dal, prestane hlidat a nikdo si toho nevsimne.
+    Proto se to aspon napise do stderru, kde to je videt.
+    """
+    syrove = sys.stdin.buffer.read()
     try:
-        udalost = json.load(sys.stdin)
-    except json.JSONDecodeError:
-        # Nerozumíme vstupu — mlčky pustíme dál, hook nesmí brzdit práci.
+        text = syrove.decode("utf-8", errors="replace").lstrip("\ufeff")
+        return json.loads(text)
+    except json.JSONDecodeError as potiz:
+        sys.stderr.write("hook nerozumel vstupu a pousti volani dal: "
+                         + str(potiz) + "\n")
+        return None
+
+
+def main() -> int:
+    udalost = nacti_udalost()
+    if udalost is None:
         return 0
 
     vstup = udalost.get("tool_input", {}) or {}

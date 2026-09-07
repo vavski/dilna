@@ -69,10 +69,27 @@ def zkontroluj_index(cwd: str) -> list:
     ]
 
 
-def main() -> int:
+def nacti_udalost():
+    """Precte udalost ze stdin. Vrati None, kdyz ji nerozumime.
+
+    Vstup se cte binarne a cisti od znacky kodovani - nektera prostredi
+    ji na zacatek prilepi a `json` na ni spadne. Hook, ktery kvuli tomu
+    tise pusti volani dal, prestane hlidat a nikdo si toho nevsimne.
+    Proto se to aspon napise do stderru, kde to je videt.
+    """
+    syrove = sys.stdin.buffer.read()
     try:
-        udalost = json.load(sys.stdin)
-    except json.JSONDecodeError:
+        text = syrove.decode("utf-8", errors="replace").lstrip("\ufeff")
+        return json.loads(text)
+    except json.JSONDecodeError as potiz:
+        sys.stderr.write("hook nerozumel vstupu a pousti volani dal: "
+                         + str(potiz) + "\n")
+        return None
+
+
+def main() -> int:
+    udalost = nacti_udalost()
+    if udalost is None:
         return 0
 
     prikaz = str((udalost.get("tool_input") or {}).get("command", "") or "")

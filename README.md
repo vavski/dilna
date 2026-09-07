@@ -76,6 +76,7 @@ repozitáři a dá se přečíst.
 ├── mcp/kniha.py            vlastní MCP server nad historií nálezů
 └── statusline.py           stavový řádek
 priklad/                    ukázkový vzorek, tři smyšlené projekty
+testy/zkousky.py            dvacet zkoušek, ověří to výše
 docs/                       proč je to udělané takhle
 ```
 
@@ -173,6 +174,30 @@ rodné číslo (5×)
   priklad\fakturace\data\odberatele.csv:2  900*******4 [vypadá smyšleně]
   ...
 ```
+
+---
+
+## Jak si ověřit, že to funguje
+
+```bash
+python testy/zkousky.py
+```
+
+Dvacet zkoušek přes hooky, stavový řádek, skener osobních údajů a MCP
+server. Trvá to pár vteřin a nepotřebuje to běžící Claude Code.
+
+```
+Hook osobni_udaje.py
+  PROSLO   rodne cislo zastavi zapis
+  PROSLO   cislo faktury projde
+  PROSLO   vzorek pod priklad/ projde
+  PROSLO   DIC zastavi zapis
+...
+Vsechny zkousky prosly.
+```
+
+Subagenty zkoušky nepokrývají — ti potřebují běžící Claude Code a jejich
+odpověď se pokaždé liší. Testovat se dá jen to, co má pevný výstup.
 
 ---
 

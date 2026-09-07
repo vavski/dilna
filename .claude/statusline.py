@@ -49,9 +49,11 @@ def ceka_na_pozornost(projekt: str) -> int:
 
 
 def main() -> None:
+    # Znacka kodovani na zacatku vstupu by radek zbytecne vyprazdnila.
     try:
-        udalost = json.load(sys.stdin)
-    except (json.JSONDecodeError, ValueError):
+        syrove = sys.stdin.buffer.read().decode("utf-8", errors="replace")
+        udalost = json.loads(syrove.lstrip("\ufeff"))
+    except (json.JSONDecodeError, ValueError, OSError):
         udalost = {}
 
     model = (udalost.get("model") or {}).get("display_name", "?")
