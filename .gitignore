@@ -8,6 +8,9 @@
 # Stav práce na samotném nastavení. Patří do dílny, ne do odevzdávky.
 /STAV.md
 
+# Zabalená odevzdávka. Vyrábí se z gitu, do gitu nepatří.
+/odevzdani/
+
 # Prostředí a závislosti
 __pycache__/
 *.pyc
